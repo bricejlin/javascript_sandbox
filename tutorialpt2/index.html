@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>JS Sandbox</title>
+  </head>
+  <body onResize=increaseImg();>
+    <script>
+      function increaseImg()
+      {
+        document.getElementById("avatar").style.width="25%";
+      }
+      function decreaseImg()
+      {
+        document.getElementById("avatar").style.width="105px";
+      }
+      function alertMe()
+      {
+        alert("Hey! You clicked me!");
+      }
+      function displayPara()
+      {
+        document.getElementById("first").style.visibility=(document.formvanish.firstpara.checked == true ? "visible" : "hidden");
+        document.getElementById("second").style.visibility=(document.formvanish.secondpara.checked == true ? "visible" : "hidden");
+        document.getElementById("third").style.visibility=(document.formvanish.thirdpara.checked == true ? "visible" : "hidden");
+      }
+      function eraseOtherText()
+      {
+        document.getElementById("firstIn").value="";
+      }
+    </script>
+
+    <img src="brice.jpg" id="avatar" style="width:105px" onClick=alertMe(); onMouseOver=increaseImg(); onMouseOut=decreaseImg();>
+
+    <p id="first">This is the first paragraph</p>
+    <p id="second">This is the second paragraph</p>
+    <p id="third">This is the third paragraph</p>
+
+    <form name="formvanish">
+      <input type="checkbox" id="firstpara" checked=true onClick=displayPara();>Paragraph 1<br>
+      <input type="checkbox" id="secondpara" checked=true onClick=displayPara();>Paragraph 2<br>
+      <input type="checkbox" id="thirdpara" checked=true onClick=displayPara();>Paragraph 3<br>
+    </form>
+
+    <br>
+
+    <form name="blur">
+      <p>When you click out of this input, it will call an onBlur event</p>
+      <input type="text" onBlur=alertMe();>
+    </form>
+
+    <br>
+
+    <form id="onlyone">
+      <p>Only one of these fields can have text at a time - pending</p>
+      <input type="text" id="firstIn">
+      <input type="text" id="secondIn" onKeyPress=eraseOtherText();>
+      <input type="text" id="thirdIn" onKeyPress=eraseOtherText();>
+    </form>
+
+    <br>
+
+    <form name="formex">
+      <p>Text input</p>
+      <input type="text" name="mousex" />Mouse X Position <br>
+      <input type="text" name="mousey" />Mouse Y Position <br>
+      <input type="text" name="mouseclick" />Mouse Click <br>
+    </form>
+
+    <script>
+      document.captureEvents(Event.MOUSEMOVE);
+      document.captureEvents(Event.MOUSEDOWN);
+
+      document.onmousemove = mousePos;
+      document.onmousedown = mouseDown;
+
+      var mouseX = null;
+      var mouseY = null;
+
+      function mousePos(e)
+      {
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+
+        document.formex.mousex.value = mouseX;
+        document.formex.mousey.value = mouseY;
+      }
+      function mouseDown(e)
+      {
+        switch(e.which)
+        {
+          case 1:
+            document.formex.mouseclick.value = "Left Click";
+            break;
+          case 2:
+            document.formex.mouseclick.value = "Middle Click";
+            break;
+          default:
+            document.formex.mouseclick.value = "Right Click";
+            break;
+        }
+      }
+
+    </script>
+  </body>
+</html>
